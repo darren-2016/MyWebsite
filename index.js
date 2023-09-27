@@ -8,8 +8,15 @@ function randomInteger(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
 }
 
+function buttonClicked() {
+    console.log("button clicked");
+}
+
 window.onload = async function () {
     document.getElementById("testMessage").innerHTML = "Test message";
+    let buttonClickHere = document.getElementById("buttonClickHere");
+    buttonClickHere.addEventListener("click", buttonClicked);
+
     let quoteMessage = document.getElementById("quoteMessage");
     
     let response = await fetch("https://type.fit/api/quotes");
