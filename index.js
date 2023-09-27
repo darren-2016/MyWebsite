@@ -17,9 +17,13 @@ window.onload = async function () {
     if (!response.ok) {
         quoteMessage.innerHTML = "Problem reading quote API";
     } else {
-        let json = await response.json();
-        // console.log(data.text);
-        let index = randomInteger(0, 15);
-        quoteMessage.innerHTML = json[index].text;
+        let type = response.headers.get("content-type");
+        if (type === "application/json") {
+            let json = await response.json();
+            let index = randomInteger(0, 15);
+            quoteMessage.innerHTML = json[index].text;
+        } else {
+            quoteMessage.innerHTML = "No JSON received from API"
+        }
     }
 }
