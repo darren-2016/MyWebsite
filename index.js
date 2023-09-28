@@ -13,8 +13,11 @@ function buttonClicked() {
 }
 
 window.onload = async function () {
-    document.getElementById("testMessage").innerHTML = "Test message";
+    let testMessage = document.getElementById("testMessage");
     let buttonClickHere = document.getElementById("buttonClickHere");
+    
+    testMessage.innerHTML = "Test message";
+    
     buttonClickHere.addEventListener("click", buttonClicked);
 
     let quoteMessage = document.getElementById("quoteMessage");
@@ -25,7 +28,7 @@ window.onload = async function () {
         quoteMessage.innerHTML = "Problem reading quote API";
     } else {
         let type = response.headers.get("content-type");
-        if (type === "application/json") {
+        if(type === "text/plain; charset=UTF-8") { // if (type === "application/json") {
             let json = await response.json();
             let index = randomInteger(0, 15);
             quoteMessage.innerHTML = json[index].text;
@@ -34,3 +37,4 @@ window.onload = async function () {
         }
     }
 }
+
