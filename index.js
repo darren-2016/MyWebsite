@@ -12,6 +12,22 @@ function buttonClicked() {
     console.log("button clicked");
 }
 
+async function displayDogImage() {
+    let imageDog = document.getElementById("imageDog");
+    let response = await fetch("https://dog.ceo/api/breeds/image/random");
+    if (!response.ok) {
+        console.log("Problem reading quote API");
+    } else {
+        let type = response.headers.get("content-type");
+        if (type === "application/json") {
+            let json = await response.json();
+            imageDog.innerHTML = `<img src="${json.message}" height="400">`;
+        } else {
+            console.log("No JSON received from API");
+        }
+    }   
+}
+
 window.onload = async function () {
     let testMessage = document.getElementById("testMessage");
     let buttonClickHere = document.getElementById("buttonClickHere");
@@ -36,5 +52,7 @@ window.onload = async function () {
             quoteMessage.innerHTML = "No JSON received from API"
         }
     }
+
+    displayDogImage();
 }
 
